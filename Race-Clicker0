@@ -1,0 +1,228 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("|| GRP HUB | Race-Clicker ||", "Sentinel")
+
+local Tab = Window:NewTab("Main")
+local Section3 = Tab:NewSection("Race Clicker (Main)")
+local Section0 = Tab:NewSection("|| Other ||")
+
+--TESTS
+
+
+
+--Main
+
+Section3:NewSlider("Speed Level", "Changes The Speed Of Your Walk", 500, 1, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+Section3:NewToggle("Higher FOV", "Changes Your Camera FOV To High", function(state)
+    if state then
+         local FovNumber = 130 --Enter your FOV number here
+local Camera = workspace.CurrentCamera
+Camera.FieldOfView = FovNumber
+    else
+         local FovNumber = 80 --Enter your FOV number here
+local Camera = workspace.CurrentCamera
+Camera.FieldOfView = FovNumber
+    end
+end)
+
+
+
+Section3:NewToggle("Lower FOV", "Changes Your Camera FOV To Low", function(state)
+    if state then
+         local FovNumber = 40 --Enter your FOV number here
+local Camera = workspace.CurrentCamera
+Camera.FieldOfView = FovNumber
+    else
+         local FovNumber = 80 --Enter your FOV number here
+local Camera = workspace.CurrentCamera
+Camera.FieldOfView = FovNumber
+    end
+end)
+
+
+
+--SCRIPTS#1
+local Tab = Window:NewTab("Scripts")
+local Section = Tab:NewSection("Main Scripts (Random)")
+local SectionOther = Tab:NewSection("Other Scripts (Usefull)")
+Section:NewButton("Androminome Hub (Script#1)", "A Usefull Script Of Race Clicker", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/boomcacas/androminome/main/hub"))()
+end)
+
+Section:NewButton("Ultra Hub (Script#2)", "A Usefull Script Of Race Clicker ", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaRdoOx/Ultra-Hub/main/Main"))()
+end)
+
+Section:NewButton("Red Race Clicker (Script#3)", "A Script Of Race Clicker", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe2/ToraIsMe2/main/%40race", true))()
+end)
+
+--OtherScripts
+
+SectionOther:NewButton("Infinite Yield", "A Hub Of Admins! (Free Admin)", function()
+    loadstring(game:HttpGet(('https://pastebin.com/raw/tzTXmYf2'),true))()
+end)
+
+SectionOther:NewButton("CMD-X", "A Cmd Of Admins! (.commands)", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()
+end)
+
+
+
+SectionOther:NewButton("More Scripts Coming Soon!", "A Hub Of Admins! (Free Admin)", function()
+    print("Soon!")
+end)
+
+
+Section0:NewButton("Ctrl Teleport", "'Ctrl' Button + Click Anywhere = Teleport!", function()
+    local UIS = game:GetService("UserInputService")
+
+local Player = game.Players.LocalPlayer
+local Mouse = Player:GetMouse()
+
+
+function GetCharacter()
+   return game.Players.LocalPlayer.Character
+end
+
+function Teleport(pos)
+   local Char = GetCharacter()
+   if Char then
+       Char:MoveTo(pos)
+   end
+end
+
+
+UIS.InputBegan:Connect(function(input)
+   if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+       Teleport(Mouse.Hit.p)
+   end
+end)
+end)
+
+
+
+Section0:NewButton("Die Character", "Lol! Your Character To Stand On Head!", function()
+    --[[
+     FE Invisible
+     By: Unknown
+]]--
+
+Local = game:GetService('Players').LocalPlayer
+Char  = Local.Character
+touched,tpdback = false, false
+Local.CharacterAdded:connect(function(char)
+    if script.Disabled ~= true then
+        wait(.25)
+        loc = Char.HumanoidRootPart.Position
+        Char:MoveTo(box.Position + Vector3.new(0,.5,0))
+    end
+end)
+game:GetService('UserInputService').InputBegan:connect(function(key)
+    if key.KeyCode == Enum.KeyCode.Equals then
+        if script.Disabled ~= true then
+            script.Disabled = true
+            print'You can Execute Again'
+        end
+    end
+end)
+box = Instance.new('Part',workspace)
+box.Anchored = true
+box.CanCollide = true
+box.Size = Vector3.new(10,1,10)
+box.Position = Vector3.new(0,10000,0)
+box.Touched:connect(function(part)
+    if (part.Parent.Name == Local.Name) then
+        if touched == false then
+            touched = true
+            function apply()
+                if script.Disabled ~= true then
+                    no = Char.HumanoidRootPart:Clone()
+                    wait(.25)
+                    Char.HumanoidRootPart:Destroy()
+                    no.Parent = Char
+                    Char:MoveTo(loc)
+                    touched = false
+                end end
+            if Char then
+                apply()
+            end
+        end
+    end
+end)
+repeat wait() until Char
+loc = Char.HumanoidRootPart.Position
+Char:MoveTo(box.Position + Vector3.new(0,.5,0))
+end)
+
+
+
+
+
+
+
+Section0:NewButton("Auto Clicker", "A Customizeable AutoClicker (GUI)", function()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/JustEzpi/ROBLOX-Scripts/main/ROBLOX_AutoClicker"))()
+end)
+
+
+--MISC
+
+local Tab = Window:NewTab("Misc")
+local SectionOP = Tab:NewSection("MISC")
+
+SectionOP:NewKeybind("Hide GUI", "Hides The Script When You Press The Keybind", Enum.KeyCode.LeftAlt, function()
+	Library:ToggleUI()
+end)
+
+SectionOP:NewButton("Rejoin Game", "Rejoins The Game You Are Playing! ", function()
+    local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ 
+
+ts:Teleport(game.PlaceId, p)
+end)
+
+SectionOP:NewButton("Stats Tracker", "Tracks The Stats Of Your Lag And Server Time!", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/qSQKxrkt", true))()
+end)
+
+
+
+
+
+--CREDITS
+
+local Tab = Window:NewTab("Credits")
+
+local Section999 = Tab:NewSection("||| CREDITS |||")
+
+Section999:NewButton("Created By - GRP", "ButtonInfo", function()
+    print("Clicked")
+end)
+Section999:NewButton("Main Credit - GRP", "ButtonInfo", function()
+    print("Clicked")
+end)
+Section999:NewButton("Main Discord - GRP_ALT#8965", "ButtonInfo", function()
+    print("Clicked")
+end)
+Section999:NewButton("Official Discord - GRP#7044", "ButtonInfo", function()
+    print("Clicked")
+end)
+Section999:NewButton("YouTube - GW GRP", "ButtonInfo", function()
+    print("Clicked")
+end)
+Section999:NewButton("Roblox - GRP_OFFICIAL", "ButtonInfo", function()
+    print("Clicked")
+end)
+
+local Section888 = Tab:NewSection("|| Game Support - Race Clicker ||")
+
+
+
+
+
